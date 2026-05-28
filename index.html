@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>수비학 로또 번호 생성기</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="stars"></div>
+    <main class="wrap">
+      <header class="hero">
+        <h1>✦ 수비학 로또 생성기 ✦</h1>
+        <p class="sub">생년월일과 이름으로 수비학을 풀이하고, 최근 당첨내역과 결합해 나만의 6개 번호를 추천합니다.</p>
+      </header>
+
+      <section class="panel">
+        <div class="field">
+          <label for="name">이름 <span class="hint">(로마자/영문, 선택 — 표현·영혼·성격수 계산용)</span></label>
+          <input id="name" type="text" placeholder="예: Hong Gildong" autocomplete="off" />
+        </div>
+
+        <div class="field">
+          <label for="birth">생년월일 <span class="req">*</span></label>
+          <input id="birth" type="date" min="1900-01-01" max="2026-12-31" />
+        </div>
+
+        <div class="field">
+          <label for="recent">
+            최근 당첨내역 <span class="hint">(한 줄에 메인 6개. 보너스 번호는 무시됩니다. 동행복권 실제 번호로 교체하면 정확도 ↑)</span>
+          </label>
+          <textarea id="recent" rows="8" spellcheck="false"></textarea>
+        </div>
+
+        <div id="error" class="error"></div>
+
+        <div class="actions">
+          <button id="go" class="primary">수비학 풀이 + 번호 생성</button>
+          <button id="regen" class="ghost" style="display: none">🔄 다른 조합 다시 뽑기</button>
+        </div>
+      </section>
+
+      <section id="output" class="output">
+        <div id="profile" class="panel"></div>
+        <div id="results" class="panel"></div>
+      </section>
+
+      <footer class="foot">
+        <p>
+          ⚠️ 본 도구는 <b>재미·오락용</b>입니다. 로또 추첨은 완전한 무작위이며, 어떤 번호 조합도
+          당첨 확률을 높이지 않습니다. 수비학은 과학적 근거가 없는 점술의 일종입니다. 과도한 구매에 주의하세요.
+        </p>
+      </footer>
+    </main>
+    <script src="main.js"></script>
+  </body>
+</html>
