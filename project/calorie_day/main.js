@@ -972,10 +972,12 @@ function drawChart(data){
   });
 }
 function renderProducts(){
+  const grid=$('#prodGrid');
+  if(!grid) return;   // 쿠팡 파트너스 카드가 숨겨져 있으면 건너뜀 (애드센스 승인 전)
   const goal=DB.profile?(DB.profile.goal||'lose'):'lose';
   const list=PRODUCTS[goal]||PRODUCTS.lose;
   // ↓↓↓ 배포 후 쿠팡 파트너스 링크 연결: data-href에 발급받은 링크를 넣고 prod 클릭 시 window.open(p.href) 처리 ↓↓↓
-  $('#prodGrid').innerHTML=list.map(p=>`
+  grid.innerHTML=list.map(p=>`
     <div class="prod" title="배포 후 쿠팡 파트너스 링크가 연결됩니다">
       <div class="prod-emo">${p.emo}</div>
       <div class="prod-name">${p.name}</div>
