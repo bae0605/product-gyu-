@@ -248,7 +248,31 @@ h1 .brand{color:var(--teal);}
 
 @keyframes fadeUp{from{opacity:0;transform:translateY(16px);}to{opacity:1;transform:translateY(0);}}
 
-@media(max-width:480px){
-  .item{grid-template-columns:52px 22px 1fr;gap:10px;}
-  .time{font-size:13px;}
+/* ---------- Responsive ---------- */
+@media(max-width:600px){
+  .wrap{padding:42px 16px 90px;}
+  header{margin-bottom:38px;}
+  .mascot{width:170px;}
+  .route{font-size:13px;padding:8px 15px;}
+  .item{grid-template-columns:54px 22px 1fr;gap:11px;padding:8px 0;}
+  .time{font-size:13px;padding:7px 0;margin-top:15px;}
+  .node{top:22px;}
+  .item:first-child .track::before{top:22px;}
+  .item:last-child .track::before{height:22px;}
+  .card{padding:13px 14px;border-radius:12px;}
+  .card h3{font-size:15px;gap:7px;}
+  .card h3 .emoji{font-size:17px;}
+  .card p{font-size:13px;}
+  .card .loc{font-size:11.5px;}
+  .start-btn{font-size:17px;padding:16px 40px;width:100%;max-width:340px;}
+}
+@media(max-width:380px){
+  .wrap{padding:36px 12px 80px;}
+  .item{grid-template-columns:48px 18px 1fr;gap:9px;}
+  .time{font-size:12px;}
+  .mascot{width:150px;}
+  .overlay .mascot-lg{width:120px;}
+}
+@media(hover:none){
+  .card:hover{transform:none;box-shadow:0 5px 16px rgba(31,36,33,.045);}
 }
