@@ -124,8 +124,8 @@
       <div id="mealsWrap"></div>
     </div>
 
-    <div class="card">
-      <h2><span class="emo">🍻</span>음주 기록 <span class="tail">술 + 안주 칼로리</span></h2>
+    <div class="card card-collapsible collapsed" id="card-drink">
+      <h2><span class="emo">🍻</span>음주 기록 <span class="tail">술 + 안주 칼로리</span><span class="chev">▾</span></h2>
       <p class="sub">음주 여부를 선택하세요. <b>‘마실 예정’</b>은 아직 안 마셨어도 오늘 칼로리 예산에 미리 반영돼요.</p>
       <div class="seg seg3" id="drinkSeg" style="margin-top:12px">
         <input type="radio" name="drinkStatus" id="dk-none" value="none" checked><label for="dk-none">🚫 안 마셔요</label>
@@ -152,8 +152,8 @@
       </div>
     </div>
 
-    <div class="card">
-      <h2><span class="emo">🚶</span>이동 거리 <span class="tail">도보 · 자전거만</span></h2>
+    <div class="card card-collapsible collapsed" id="card-move">
+      <h2><span class="emo">🚶</span>이동 거리 <span class="tail">도보 · 자전거만</span><span class="chev">▾</span></h2>
       <p class="sub">차량·대중교통은 제외하고 직접 몸을 움직인 <b>도보·자전거</b> 거리만 입력하세요.</p>
       <div class="grid cols-2" style="margin-top:12px">
         <div class="field"><label>🚶 걷기 거리 <span class="hint">km</span></label><input type="number" id="walkKm" placeholder="0" min="0" step="0.1"></div>
@@ -161,8 +161,8 @@
       </div>
     </div>
 
-    <div class="card">
-      <h2><span class="emo">💪</span>오늘 한 운동 <span class="tail">칼로리 소모</span></h2>
+    <div class="card card-collapsible collapsed" id="card-ex">
+      <h2><span class="emo">💪</span>오늘 한 운동 <span class="tail">칼로리 소모</span><span class="chev">▾</span></h2>
       <p class="sub">대표 운동을 선택하고 시간을 입력하세요. 목록에 없으면 <b>기타</b>로 직접 작성할 수 있어요.</p>
       <div class="chips" id="exChips"></div>
       <div class="row-add" id="exInputRow" style="margin-top:14px;display:none">

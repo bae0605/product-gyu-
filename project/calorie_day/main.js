@@ -699,11 +699,12 @@ $('#wakeTime').addEventListener('input',updateSleep);
 function initMeals(){
   const wrap=$('#mealsWrap');
   wrap.innerHTML=MEALS.map(m=>`
-    <div class="meal" id="meal-${m.id}" style="--mc:${m.color};--mc-bg:${m.bg}">
+    <div class="meal collapsed" id="meal-${m.id}" style="--mc:${m.color};--mc-bg:${m.bg}">
       <div class="meal-head">
         <span class="meal-title"><span class="me">${m.emoji}</span>${m.name}</span>
         <span class="meal-kcal" id="mkcal-${m.id}">0 kcal</span>
         <label class="skip" id="skiplbl-${m.id}"><input type="checkbox" class="skipChk" data-m="${m.id}"> 안 먹음</label>
+        <span class="meal-chev">▾</span>
       </div>
       <div class="meal-body">
         <div class="row-add labeled">
@@ -729,6 +730,11 @@ function initMeals(){
     $('#meal-'+id).classList.toggle('skipped',chk.checked);
     $('#skiplbl-'+id).classList.toggle('on',chk.checked);
     renderMeal(id); renderDaySummary();
+  }));
+  // 끼니 헤더 탭 → 펼침/접힘 ('안 먹음' 체크 클릭은 제외)
+  wrap.querySelectorAll('.meal-head').forEach(head=>head.addEventListener('click',e=>{
+    if(e.target.closest('.skip')) return;
+    head.parentElement.classList.toggle('collapsed');
   }));
 }
 function addMealFood(id){
@@ -898,8 +904,14 @@ function renderDaily(){
     const chk=$('.skipChk[data-m="'+m.id+'"]'); chk.checked=cur.meals[m.id].skipped;
     $('#meal-'+m.id).classList.toggle('skipped',cur.meals[m.id].skipped);
     $('#skiplbl-'+m.id).classList.toggle('on',cur.meals[m.id].skipped);
+    // 음식이 있는 끼니만 펼침, 빈 끼니는 접힘
+    $('#meal-'+m.id).classList.toggle('collapsed', cur.meals[m.id].foods.length===0);
     renderMeal(m.id);
   });
+  // 데이터가 있는 상단 카드는 펼침
+  $('#card-drink').classList.toggle('collapsed', cur.drink.status==='none');
+  $('#card-move').classList.toggle('collapsed', !(cur.walkKm||cur.bikeKm));
+  $('#card-ex').classList.toggle('collapsed', cur.exercises.length===0);
   renderAlc(); renderAnju(); renderExItems(); renderDaySummary();
 }
 $('#logDate').addEventListener('change',renderDaily);
@@ -1091,9 +1103,17 @@ function updateTodayPill(){
   t.style.background='var(--blue-50)'; t.style.color='var(--blue-700)'; t.style.borderColor='var(--blue-100)';
 }
 
+/* 접기 카드(음주/이동/운동) 헤더 탭 → 펼침/접힘 */
+function initAccordion(){
+  $$('.card-collapsible').forEach(card=>{
+    const h=card.querySelector('h2');
+    if(h) h.addEventListener('click',()=>card.classList.toggle('collapsed'));
+  });
+}
+
 /* ===================== INIT ===================== */
 (function init(){
-  updateTodayPill(); initMeals(); initAlcohol(); initExChips();
+  updateTodayPill(); initMeals(); initAlcohol(); initExChips(); initAccordion();
   attachAutocomplete($('#anjuName'),(n,k)=>{ $('#anjuKcal').value=k; });
   $('#logDate').value=todayStr();
   if(DB.profile) fillProfileForm();

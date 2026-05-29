@@ -182,6 +182,19 @@ select{appearance:none;background-image:url("data:image/svg+xml;utf8,<svg xmlns=
 .meal-body{padding:13px 15px}
 .meal.skipped .meal-body{display:none}
 
+/* ===================== ACCORDION (접기) ===================== */
+/* 끼니 카드 */
+.meal-head{cursor:pointer}
+.meal-chev{flex:none;color:var(--slate-400);font-size:12px;transition:transform .2s;margin-left:2px}
+.meal.collapsed .meal-chev{transform:rotate(-90deg)}
+.meal.collapsed .meal-body{display:none}
+/* 상단 카드 (음주/이동/운동) */
+.card-collapsible > h2{cursor:pointer;user-select:none}
+.card-collapsible > h2 .chev{flex:none;color:var(--slate-400);font-size:13px;transition:transform .2s}
+.card-collapsible.collapsed > h2{margin-bottom:0}
+.card-collapsible.collapsed > h2 .chev{transform:rotate(-90deg)}
+.card-collapsible.collapsed > *:not(h2){display:none}
+
 .row-add{display:flex;gap:9px;align-items:stretch}
 .row-add .grow{flex:1;min-width:0}
 /* 라벨이 붙은 입력행 (음식 / 칼로리 / 인분) */
