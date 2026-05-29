@@ -350,3 +350,61 @@ footer{text-align:center;color:var(--slate-400);font-size:12px;margin-top:30px;l
   .summary-grid{grid-template-columns:1fr}
   .rh-grid{grid-template-columns:1fr}
 }
+
+/* ===================== CONTENT PAGES (소개/정책/문의/가이드) ===================== */
+.cpage{max-width:760px;margin:0 auto;padding:0 18px 70px}
+.cnav{position:sticky;top:0;z-index:50;backdrop-filter:saturate(160%) blur(12px);background:rgba(255,255,255,.82);border-bottom:1px solid var(--line)}
+.cnav-inner{max-width:760px;margin:0 auto;padding:13px 18px;display:flex;align-items:center;gap:11px}
+.cnav .logo{width:38px;height:38px;border-radius:11px;flex:none;background:linear-gradient(140deg,var(--blue-500),var(--indigo));display:grid;place-items:center;color:#fff;font-size:19px;box-shadow:var(--shadow-sm)}
+.cnav .ttl{font-size:16px;font-weight:900;letter-spacing:-.02em}
+.cnav a.home{margin-left:auto;font-size:13px;font-weight:800;color:var(--blue-700);background:var(--blue-50);border:1px solid var(--blue-100);padding:8px 14px;border-radius:999px;text-decoration:none;white-space:nowrap}
+.cnav a.home:hover{background:#fff}
+
+.article{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:30px;box-shadow:var(--shadow-sm);margin-top:22px}
+.article h1{font-size:26px;font-weight:900;letter-spacing:-.03em;line-height:1.25}
+.article .lead{color:var(--slate-500);font-size:15px;margin-top:10px;line-height:1.7}
+.article .updated{color:var(--slate-400);font-size:12.5px;margin-top:6px}
+.article h2{font-size:19px;font-weight:900;margin:32px 0 10px;letter-spacing:-.02em;scroll-margin-top:70px}
+.article h3{font-size:15.5px;font-weight:800;margin:20px 0 6px;color:var(--slate-700)}
+.article p{font-size:15px;line-height:1.85;color:#1f2937;margin:10px 0}
+.article ul,.article ol{margin:10px 0;padding-left:22px;display:flex;flex-direction:column;gap:8px}
+.article li{font-size:15px;line-height:1.7;color:#1f2937}
+.article b,.article strong{color:var(--ink);font-weight:800}
+.article a{color:var(--blue-600);font-weight:700}
+.article .tbl{width:100%;border-collapse:collapse;margin:14px 0;font-size:14px}
+.article .tbl th,.article .tbl td{border:1px solid var(--line);padding:10px 12px;text-align:left;vertical-align:top}
+.article .tbl th{background:var(--blue-50);font-weight:800;color:var(--blue-700)}
+.article .note{background:var(--amber-bg);border:1px solid #fde68a;color:#92400e;border-radius:12px;padding:14px 16px;font-size:13.5px;font-weight:600;line-height:1.65;margin:16px 0}
+.article .formula{background:var(--blue-50);border:1px solid var(--blue-100);border-radius:12px;padding:14px 16px;font-size:14.5px;font-weight:700;color:var(--blue-800);line-height:1.7;margin:12px 0}
+
+.toc{background:var(--bg-soft,#fbfaf6);background:#f8fafc;border:1px solid var(--line);border-radius:14px;padding:16px 20px;margin:18px 0}
+.toc b{display:block;font-size:13px;color:var(--slate-500);margin-bottom:8px}
+.toc a{display:block;color:var(--slate-700);font-weight:700;font-size:14px;padding:4px 0;text-decoration:none}
+.toc a:hover{color:var(--blue-700)}
+
+.contact-box{display:flex;align-items:center;gap:14px;background:linear-gradient(160deg,#fff,var(--blue-50));border:1px solid var(--blue-100);border-radius:14px;padding:18px 20px;margin:18px 0}
+.contact-box .ic{width:46px;height:46px;border-radius:13px;background:linear-gradient(140deg,var(--blue-500),var(--indigo));display:grid;place-items:center;color:#fff;font-size:22px;flex:none}
+.contact-box .k{font-size:12.5px;color:var(--slate-500);font-weight:700}
+.contact-box a{font-size:18px;font-weight:900;color:var(--blue-700);text-decoration:none}
+
+.faq{border:1px solid var(--line);border-radius:13px;padding:16px 18px;margin:10px 0;background:#fff}
+.faq .q{font-weight:900;font-size:15px;color:var(--ink)}
+.faq .a{font-size:14px;line-height:1.75;color:var(--slate-700);margin-top:7px}
+
+/* 공통 사이트 푸터 */
+.site-foot{border-top:1px solid var(--line);margin-top:30px;padding:20px 0 4px;text-align:center}
+.site-foot .links{display:flex;flex-wrap:wrap;gap:6px 18px;justify-content:center;margin-bottom:12px}
+.site-foot .links a{color:var(--slate-600);font-size:13px;font-weight:800;text-decoration:none}
+.site-foot .links a:hover{color:var(--blue-700)}
+.site-foot .copy{color:var(--slate-400);font-size:12px;line-height:1.8}
+
+/* 랜딩 하단 링크 */
+.landing-foot{margin-top:26px;display:flex;flex-wrap:wrap;gap:4px 16px;justify-content:center}
+.landing-foot a{color:rgba(255,255,255,.85);font-size:12.5px;font-weight:700;text-decoration:none}
+.landing-foot a:hover{color:#fff;text-decoration:underline}
+
+@media(max-width:600px){
+  .article{padding:22px 18px}
+  .article h1{font-size:22px}
+  .cnav .ttl{font-size:15px}
+}
