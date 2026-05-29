@@ -603,7 +603,33 @@ function regenerate() {
   run();
 }
 
+/* ----------------------------- 테마 토글 ----------------------------- */
+
+function applyThemeIcon(theme) {
+  const icon = document.querySelector("#theme-toggle .theme-toggle-icon");
+  if (icon) icon.textContent = theme === "light" ? "☀️" : "🌙";
+}
+
+function initThemeToggle() {
+  const root = document.documentElement;
+  // <head> 인라인 스크립트가 이미 data-theme를 적용해 둠 (FOUC 방지)
+  applyThemeIcon(root.getAttribute("data-theme") || "dark");
+
+  const btn = document.getElementById("theme-toggle");
+  if (!btn) return;
+  btn.addEventListener("click", () => {
+    const next =
+      root.getAttribute("data-theme") === "light" ? "dark" : "light";
+    root.setAttribute("data-theme", next);
+    try {
+      localStorage.setItem("theme", next);
+    } catch (e) {}
+    applyThemeIcon(next);
+  });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
+  initThemeToggle();
   document.getElementById("recent").value = SAMPLE_DRAWS;
   document.getElementById("go").addEventListener("click", () => {
     regenSalt = 0;

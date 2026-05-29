@@ -5,9 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>수비학 로또 번호 생성기</title>
     <link rel="stylesheet" href="style.css" />
+    <script>
+      // 화면 깜빡임(FOUC) 방지 — 페인트 전에 저장된 테마를 즉시 적용
+      (function () {
+        try {
+          var saved = localStorage.getItem("theme");
+          var theme =
+            saved ||
+            (window.matchMedia &&
+            window.matchMedia("(prefers-color-scheme: light)").matches
+              ? "light"
+              : "dark");
+          document.documentElement.setAttribute("data-theme", theme);
+        } catch (e) {}
+      })();
+    </script>
   </head>
   <body>
     <div class="stars"></div>
+    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="테마 전환" title="다크/화이트 모드 전환">
+      <span class="theme-toggle-icon">🌙</span>
+    </button>
     <main class="wrap">
       <header class="hero">
         <h1>✦ 수비학 로또 생성기 ✦</h1>

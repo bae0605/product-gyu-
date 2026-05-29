@@ -1,6 +1,9 @@
-:root {
+:root,
+:root[data-theme="dark"] {
+  color-scheme: dark;
   --bg: #0e0b1f;
   --bg2: #171132;
+  --bg-glow: #2a1d5e;
   --panel: rgba(255, 255, 255, 0.05);
   --panel-border: rgba(255, 255, 255, 0.12);
   --accent: #b78cff;
@@ -8,6 +11,28 @@
   --text: #ece9ff;
   --muted: #a59cce;
   --danger: #ff8a8a;
+  --input-bg: rgba(0, 0, 0, 0.25);
+  --card-bg: rgba(255, 255, 255, 0.04);
+  --game-explain: #d9d4ff;
+  --stars-opacity: 0.5;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #f3f1fb;
+  --bg2: #e7e2f7;
+  --bg-glow: #d8ccff;
+  --panel: rgba(255, 255, 255, 0.75);
+  --panel-border: rgba(91, 70, 150, 0.18);
+  --accent: #7c4dff;
+  --accent2: #d99700;
+  --text: #221a3a;
+  --muted: #6a6088;
+  --danger: #d2333b;
+  --input-bg: rgba(255, 255, 255, 0.9);
+  --card-bg: rgba(255, 255, 255, 0.7);
+  --game-explain: #2e2750;
+  --stars-opacity: 0.18;
 }
 
 * {
@@ -23,8 +48,9 @@ body {
 body {
   font-family: "Pretendard", "Malgun Gothic", system-ui, -apple-system, sans-serif;
   color: var(--text);
-  background: radial-gradient(1200px 600px at 70% -10%, #2a1d5e 0%, var(--bg) 55%),
+  background: radial-gradient(1200px 600px at 70% -10%, var(--bg-glow) 0%, var(--bg) 55%),
     linear-gradient(160deg, var(--bg) 0%, var(--bg2) 100%);
+  transition: background 0.3s ease, color 0.3s ease;
   min-height: 100vh;
   line-height: 1.6;
   position: relative;
@@ -40,9 +66,43 @@ body {
     radial-gradient(1px 1px at 80% 20%, #cdbfff 50%, transparent),
     radial-gradient(1px 1px at 35% 80%, #fff 50%, transparent),
     radial-gradient(1.5px 1.5px at 90% 60%, #ffe9a8 50%, transparent);
-  opacity: 0.5;
+  opacity: var(--stars-opacity);
   pointer-events: none;
   z-index: 0;
+}
+
+/* 테마 전환 버튼 */
+.theme-toggle {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 5;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border-radius: 50%;
+  background: var(--panel);
+  border: 1px solid var(--panel-border);
+  color: var(--text);
+  backdrop-filter: blur(6px);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  line-height: 1;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.2);
+}
+
+.theme-toggle:hover {
+  border-color: var(--accent);
+}
+
+.theme-toggle .theme-toggle-icon {
+  transition: transform 0.3s ease;
+}
+
+.theme-toggle:hover .theme-toggle-icon {
+  transform: rotate(20deg) scale(1.1);
 }
 
 .wrap {
@@ -107,7 +167,7 @@ label {
 input,
 textarea {
   width: 100%;
-  background: rgba(0, 0, 0, 0.25);
+  background: var(--input-bg);
   border: 1px solid var(--panel-border);
   border-radius: 10px;
   color: var(--text);
@@ -217,7 +277,7 @@ h2 {
 }
 
 .num-card {
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--card-bg);
   border: 1px solid var(--panel-border);
   border-radius: 12px;
   padding: 14px;
@@ -309,7 +369,7 @@ h2 {
 }
 
 .game-card {
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--card-bg);
   border: 1px solid var(--panel-border);
   border-radius: 14px;
   padding: 16px;
@@ -357,7 +417,7 @@ h2 {
 .game-explain {
   margin: 0;
   font-size: 13.5px;
-  color: #d9d4ff;
+  color: var(--game-explain);
 }
 
 .game-explain b {
