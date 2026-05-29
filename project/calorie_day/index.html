@@ -1,13 +1,255 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Calorie Day</title>
-  <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>칼로리데이 · CalorieDay</title>
+<link rel="preconnect" href="https://cdn.jsdelivr.net" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+<link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <script src="main.js"></script>
+<!-- ===================== LANDING ===================== -->
+<div id="landing">
+  <div class="landing-inner">
+    <div class="hero-badge">🔥 매일 1분 칼로리 기록</div>
+    <div class="hero-art"><span>🍎</span><span>🏃</span><span>😴</span></div>
+    <div class="hero-title">칼로리데이</div>
+    <div class="hero-en">Calorie Day</div>
+    <p class="hero-sub">기초대사량부터 끼니별 식단·운동·수면·음주까지<br>하루 칼로리 수지를 한눈에 관리해요</p>
+    <button id="startBtn">시작하기 <span style="font-size:21px">→</span></button>
+    <div class="hero-feats">
+      <div class="hfeat"><span class="hfeat-emo">⚖️</span><div><div class="hfeat-t">기초대사량 · BMI</div><div class="hfeat-d">내 몸 기준 자동 계산</div></div></div>
+      <div class="hfeat"><span class="hfeat-emo">🍽️</span><div><div class="hfeat-t">끼니별 식단</div><div class="hfeat-d">아침·점심·저녁·야식</div></div></div>
+      <div class="hfeat"><span class="hfeat-emo">🍻</span><div><div class="hfeat-t">음주·안주 기록</div><div class="hfeat-d">마셨어요 / 마실 예정</div></div></div>
+      <div class="hfeat"><span class="hfeat-emo">📊</span><div><div class="hfeat-t">주간·월간 통계</div><div class="hfeat-d">목표 맞춤 추천</div></div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ===================== APP ===================== -->
+<header class="top hidden" id="appHeader">
+  <div class="top-inner">
+    <div class="logo">🔥</div>
+    <div class="brand"><h1>칼로리데이</h1><p>식단 · 운동 · 수면 · 음주 통합 관리</p></div>
+    <div class="today-pill" id="todayPill">오늘</div>
+  </div>
+</header>
+
+<div class="wrap hidden" id="appWrap">
+  <nav class="tabs">
+    <button data-tab="profile" class="active"><span class="n">1</span>기초대사량</button>
+    <button data-tab="daily"><span class="n">2</span>오늘 기록</button>
+    <button data-tab="stats"><span class="n">3</span>통계</button>
+  </nav>
+
+  <!-- ===== PAGE 1 ===== -->
+  <section class="page active" id="page-profile">
+    <div class="card">
+      <h2><span class="emo">⚖️</span>내 정보 입력</h2>
+      <p class="sub">성별·나이·키·몸무게·활동량·목표를 입력하면 기초대사량(BMR)과 BMI를 계산해 드려요.</p>
+
+      <div class="section-title">성별</div>
+      <div class="seg">
+        <input type="radio" name="gender" id="g-male" value="male" checked><label for="g-male">👨 남성</label>
+        <input type="radio" name="gender" id="g-female" value="female"><label for="g-female">👩 여성</label>
+      </div>
+
+      <div class="grid cols-3" style="margin-top:16px">
+        <div class="field"><label>나이 <span class="hint">세</span></label><input type="number" id="age" placeholder="예: 28" min="1" max="120"></div>
+        <div class="field"><label>키 <span class="hint">cm</span></label><input type="number" id="height" placeholder="예: 172" min="80" max="250"></div>
+        <div class="field"><label>몸무게 <span class="hint">kg</span></label><input type="number" id="weight" placeholder="예: 68" min="20" max="300" step="0.1"></div>
+      </div>
+
+      <div class="section-title">평소 활동량</div>
+      <div class="field">
+        <select id="activity">
+          <option value="1.2">거의 안 움직임 (사무직, 운동 거의 안 함)</option>
+          <option value="1.375">가벼운 활동 (주 1~3회 가벼운 운동)</option>
+          <option value="1.55" selected>보통 활동 (주 3~5회 운동)</option>
+          <option value="1.725">활발한 활동 (주 6~7회 운동)</option>
+          <option value="1.9">매우 활발 (육체노동·하루 2회 운동)</option>
+        </select>
+      </div>
+
+      <div class="section-title">🎯 목표</div>
+      <div class="seg seg3" id="goalSeg">
+        <input type="radio" name="goal" id="goal-lose" value="lose" checked><label for="goal-lose">📉 체중 감량</label>
+        <input type="radio" name="goal" id="goal-keep" value="keep"><label for="goal-keep">⚖️ 체중 유지</label>
+        <input type="radio" name="goal" id="goal-gain" value="gain"><label for="goal-gain">💪 근육 증량</label>
+      </div>
+
+      <div style="margin-top:22px"><button class="btn btn-primary" id="calcBtn">✅ 내 기초대사량 보기</button></div>
+
+      <div class="result-hero" id="resultHero">
+        <div class="rh-top">
+          <span class="lbl">하루 기초대사량 (BMR)</span>
+          <span class="big" id="bmrVal">0</span><span class="unit">kcal / 일</span>
+          <span class="tag" id="bmiTag">정상</span>
+        </div>
+        <div class="rh-grid">
+          <div class="rh-cell"><div class="k">활동대사량 (TDEE)</div><div class="v"><span id="tdeeVal">0</span> <small>kcal</small></div></div>
+          <div class="rh-cell"><div class="k">체질량지수 (BMI)</div><div class="v" id="bmiVal">0</div></div>
+          <div class="rh-cell"><div class="k">표준 체중</div><div class="v"><span id="idealVal">0</span> <small>kg</small></div></div>
+        </div>
+        <div class="bmi-bar">
+          <div class="bmi-track"><div class="bmi-knob" id="bmiKnob" style="left:0%"></div></div>
+          <div class="bmi-scale"><span>저체중</span><span>정상</span><span>과체중</span><span>비만</span><span>고도비만</span></div>
+        </div>
+      </div>
+      <p class="sub" style="margin-top:14px">※ BMR은 <b>미플린-세인트 지오르 공식</b>, BMI는 <b>대한비만학회(아시아인) 기준</b>입니다.</p>
+    </div>
+
+    <div class="page-nav"><button class="btn nav-next" data-go="daily">다음: 오늘 기록하기 →</button></div>
+  </section>
+
+  <!-- ===== PAGE 2 ===== -->
+  <section class="page" id="page-daily">
+    <div class="card">
+      <h2><span class="emo">😴</span>날짜 & 수면</h2>
+      <p class="sub">기록할 날짜와 전날 취침·기상 시간을 입력하면 수면 시간이 자동 계산돼요.</p>
+      <div class="grid cols-3" style="margin-top:12px">
+        <div class="field"><label>기록 날짜</label><input type="date" id="logDate"></div>
+        <div class="field"><label>🌙 전날 취침시간</label><input type="time" id="bedTime" value="23:30"></div>
+        <div class="field"><label>🌅 기상시간</label><input type="time" id="wakeTime" value="07:00"></div>
+      </div>
+      <div class="sleep-info" id="sleepInfo"><span class="emo">💤</span><span>수면 시간 <b id="sleepHrs">7시간 30분</b></span></div>
+      <div id="profileWarn" class="notice" style="display:none"><span class="emo">⚠️</span><span>먼저 <b>‘기초대사량’</b> 탭에서 내 정보를 입력해야 정확한 소모 칼로리가 계산돼요.</span></div>
+    </div>
+
+    <div class="card">
+      <h2><span class="emo">🍽️</span>먹은 음식 <span class="tail">끼니별 · 안 먹으면 체크</span></h2>
+      <p class="sub">끼니마다 먹은 음식을 추가하세요. 이름을 입력하면 관련 음식이 자동으로 떠요. 거른 끼니는 ‘안 먹음’을 체크하면 됩니다.</p>
+      <div id="mealsWrap"></div>
+    </div>
+
+    <div class="card">
+      <h2><span class="emo">🍻</span>음주 기록 <span class="tail">술 + 안주 칼로리</span></h2>
+      <p class="sub">음주 여부를 선택하세요. <b>‘마실 예정’</b>은 아직 안 마셨어도 오늘 칼로리 예산에 미리 반영돼요.</p>
+      <div class="seg seg3" id="drinkSeg" style="margin-top:12px">
+        <input type="radio" name="drinkStatus" id="dk-none" value="none" checked><label for="dk-none">🚫 안 마셔요</label>
+        <input type="radio" name="drinkStatus" id="dk-done" value="done"><label for="dk-done">🍻 마셨어요</label>
+        <input type="radio" name="drinkStatus" id="dk-plan" value="plan"><label for="dk-plan">📅 마실 예정</label>
+      </div>
+      <div id="planNote" class="plan-note" style="display:none">📅 ‘마실 예정’으로 기록한 술·안주는 아직 마시지 않았지만, 오늘 섭취 예산에 미리 반영돼 “오늘 얼마나 마셔도 될지” 계획을 도와줘요.</div>
+      <div id="drinkBody" style="display:none">
+        <div class="section-title">🍺 마신 / 마실 술</div>
+        <div class="row-add labeled">
+          <label class="fld grow"><span class="fl">🍶 술 종류</span><select id="alcType"></select></label>
+          <label class="fld" style="width:90px;flex:none"><span class="fl">단위</span><select id="alcUnit"></select></label>
+          <label class="fld" style="width:74px;flex:none"><span class="fl">수량</span><input type="number" id="alcCount" value="1" min="0.5" step="0.5"></label>
+          <button class="btn btn-add" id="addAlc" style="background:var(--violet)">추가</button>
+        </div>
+        <div class="list" id="alcList"></div>
+        <div class="section-title" style="margin-top:18px">🥜 안주</div>
+        <div class="row-add labeled">
+          <label class="fld grow"><span class="fl">🥜 안주</span><input type="text" id="anjuName" placeholder="안주 이름 (예: 치킨, 골뱅이무침)" autocomplete="off"></label>
+          <label class="fld" style="width:104px;flex:none"><span class="fl">🔥 칼로리</span><input type="number" id="anjuKcal" placeholder="kcal" min="0"></label>
+          <button class="btn btn-add" id="addAnju" style="background:var(--violet)">추가</button>
+        </div>
+        <div class="list" id="anjuList"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2><span class="emo">🚶</span>이동 거리 <span class="tail">도보 · 자전거만</span></h2>
+      <p class="sub">차량·대중교통은 제외하고 직접 몸을 움직인 <b>도보·자전거</b> 거리만 입력하세요.</p>
+      <div class="grid cols-2" style="margin-top:12px">
+        <div class="field"><label>🚶 걷기 거리 <span class="hint">km</span></label><input type="number" id="walkKm" placeholder="0" min="0" step="0.1"></div>
+        <div class="field"><label>🚲 자전거 거리 <span class="hint">km</span></label><input type="number" id="bikeKm" placeholder="0" min="0" step="0.1"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2><span class="emo">💪</span>오늘 한 운동 <span class="tail">칼로리 소모</span></h2>
+      <p class="sub">대표 운동을 선택하고 시간을 입력하세요. 목록에 없으면 <b>기타</b>로 직접 작성할 수 있어요.</p>
+      <div class="chips" id="exChips"></div>
+      <div class="row-add" id="exInputRow" style="margin-top:14px;display:none">
+        <div class="grow" id="exNameWrap" style="display:none"><input type="text" id="exCustom" placeholder="어떤 운동을 했나요? (예: 클라이밍)"></div>
+        <div class="grow" id="exPicked" style="font-weight:800;color:var(--blue-700);display:flex;align-items:center;padding:0 4px"></div>
+        <div style="width:108px;flex:none"><input type="number" id="exMin" placeholder="분(min)" min="1"></div>
+        <select id="exInten" style="width:100px;flex:none;display:none"><option value="3">가볍게</option><option value="5" selected>보통</option><option value="8">강하게</option></select>
+        <button class="btn btn-add" id="addEx" style="background:var(--emerald-600)">추가</button>
+      </div>
+      <div class="list" id="exItems"></div>
+    </div>
+
+    <div class="card">
+      <h2><span class="emo">🎯</span>오늘의 결과</h2>
+      <p class="sub">기초대사량 + 운동·이동 소모를 합산해 섭취량과 비교하고 예상 체중 변화를 계산합니다.</p>
+      <div class="daysum">
+        <div class="stat intake"><div class="k">🍽️ 총 섭취</div><div class="v"><span id="sumIntake">0</span> <small>kcal</small></div></div>
+        <div class="stat burn"><div class="k">🔥 총 소모</div><div class="v"><span id="sumBurn">0</span> <small>kcal</small></div></div>
+        <div class="balance even" id="balanceBox">
+          <div class="ic2" id="balanceIc">📊</div>
+          <div><div class="big" id="balanceBig">±0 kcal</div><div class="txt" id="balanceTxt">음식·운동을 기록하면 결과가 표시됩니다.</div></div>
+        </div>
+      </div>
+      <div style="margin-top:18px"><button class="btn btn-primary" id="saveDay">💾 이 날짜 기록 저장</button></div>
+    </div>
+
+    <div class="page-nav">
+      <button class="btn nav-prev" data-go="profile">←</button>
+      <button class="btn nav-next" data-go="stats">통계 보기 →</button>
+    </div>
+  </section>
+
+  <!-- ===== PAGE 3 ===== -->
+  <section class="page" id="page-stats">
+    <div class="card">
+      <h2><span class="emo">📊</span>섭취 vs 소모 추이</h2>
+      <div class="range-toggle" id="rangeToggle" style="margin-top:14px">
+        <button data-range="7" class="active">최근 7일 (주간)</button>
+        <button data-range="30">최근 30일 (월간)</button>
+      </div>
+      <div class="legend"><span><i style="background:var(--coral)"></i>섭취</span><span><i style="background:var(--emerald)"></i>소모</span></div>
+      <div class="chart-wrap"><div id="chart"></div></div>
+      <div class="summary-grid" id="statSummary"></div>
+    </div>
+
+    <div class="card" id="adviceCard"><div id="adviceWrap"></div></div>
+
+    <!-- ===== 추천 아이템 (쿠팡 파트너스 제휴 영역) ===== -->
+    <div class="card" id="recoCard">
+      <h2><span class="emo">🛒</span>목표 맞춤 추천 아이템 <span class="aff-label" style="margin-left:auto">제휴(쿠팡파트너스)</span></h2>
+      <p class="sub">내 목표에 맞는 추천템이에요. <b style="color:var(--slate-500)">※ 배포 후 쿠팡 파트너스 링크를 연결하면 활성화됩니다.</b></p>
+      <div class="prod-grid" id="prodGrid"></div>
+    </div>
+
+    <!-- ===== 광고 영역 (Google AdSense) =====
+         배포 + 애드센스 승인 후, 아래 .ad-slot 내부를 실제 광고 코드로 교체하세요:
+         <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXX" crossorigin="anonymous"></script>
+         <ins class="adsbygoogle" style="display:block" data-ad-client="ca-pub-XXXX" data-ad-slot="YYYY" data-ad-format="auto" data-full-width-responsive="true"></ins>
+         <script>(adsbygoogle = window.adsbygoogle || []).push({});</script>
+    -->
+    <div class="ad-slot">
+      <div class="t">📢 광고 영역 (Google AdSense)</div>
+      <div class="d">배포 + 애드센스 승인 후 이 자리에 광고 코드가 들어갑니다</div>
+    </div>
+
+    <!-- ===== 공유 추천 (마지막) ===== -->
+    <div class="card share-card">
+      <h2><span class="emo">🎁</span>칼로리데이 공유하기</h2>
+      <p class="sub">혼자보다 함께가 오래가요! 오늘 결과를 자랑하거나, 다이어트가 필요한 친구를 초대해보세요.</p>
+      <div class="share-btns">
+        <button class="btn btn-share-result" id="shareResult">📊 내 결과 공유하기</button>
+        <button class="btn btn-share-friend" id="shareFriend">💪 지인에게 추천하기</button>
+      </div>
+      <div class="share-tip">📋 링크가 복사되면 카톡·문자에 붙여넣어 보내세요!</div>
+    </div>
+
+    <div class="page-nav">
+      <button class="btn nav-prev" data-go="daily">←</button>
+      <button class="btn nav-next" data-go="profile" style="background:linear-gradient(135deg,var(--emerald-600),var(--blue-600))">처음 화면으로 ↑</button>
+    </div>
+  </section>
+
+  <footer>데이터는 이 브라우저에만 안전하게 저장돼요 · 칼로리는 평균치 기준 추정값입니다<br>의료적 진단이 아닌 참고용 도구입니다 · 🔥 칼로리데이</footer>
+</div>
+
+<div class="bar-tooltip" id="tooltip"></div>
+<div class="share-toast" id="shareToast"></div>
+<script src="main.js"></script>
 </body>
 </html>
